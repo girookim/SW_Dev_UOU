@@ -48,6 +48,7 @@ def draw_contour(event, x, y, flags, param):
 
 # Function to display the image and collect annotations
 def segment_image(image_path):
+    global annotated_image
     # Read the image
     image = cv2.imread(image_path)
     if image is None:
@@ -97,9 +98,9 @@ for result in results:  # Iterate through results (one per detection)
         label_text = f"{model.names[int(label)]} {confidence:.2f}"
         
         # Draw the bounding box
-        cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         # Draw the label
-        cv2.putText(image, label_text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        cv2.putText(annotated_image, label_text, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
 # Display the image with detections
 cv2.imshow('YOLO Detections', image)
